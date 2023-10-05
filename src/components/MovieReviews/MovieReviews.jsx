@@ -1,3 +1,4 @@
+import { MovieReviewsList } from 'components/MovieReviewsList/MovieReviewsList';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from 'services/api';
@@ -31,18 +32,7 @@ const MovieReviews = () => {
     <>
       {noReviewsMessage && <p>We don't have any reviews for this movie.</p>}
       {isLoading && <div>Loading...</div>}
-      {reviews.length > 0 && (
-        <ul>
-          {reviews.map(({ author, content, id }) => {
-            return (
-              <li key={id}>
-                <h3>Author: {author}</h3>
-                <p>{content}</p>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {reviews.length > 0 && <MovieReviewsList reviews={reviews} />}
     </>
   );
 };

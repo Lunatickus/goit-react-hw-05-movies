@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits } from 'services/api';
-import { StyledCastImg } from './MovieCast.styled';
-
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+import { MovieCastList } from 'components/MovieCastList/MovieCastList';
 
 const MovieCast = () => {
   const { id } = useParams();
@@ -27,19 +25,7 @@ const MovieCast = () => {
   return (
     <>
       {isLoading && <div>Loading...</div>}
-      {cast.length > 0 && (
-        <ul>
-          {cast.map(({ id, name, profile_path, character }) => {
-            return (
-              <li key={id}>
-                <StyledCastImg src={IMAGE_URL + profile_path} alt={name} />
-                <p>{name}</p>
-                <p>Character: {character}</p>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {cast.length > 0 && <MovieCastList cast={cast} />}
     </>
   );
 };

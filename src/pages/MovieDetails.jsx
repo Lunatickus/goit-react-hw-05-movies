@@ -1,14 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovie } from 'services/api';
-import {
-  Wrapper,
-  StyledImg,
-  InformWrapper,
-  StyledGenres,
-} from './MovieDetails.styled';
-
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+import { MovieDetailsInfo } from 'components/MoviDetailsInfo/MoviDetailsInfo';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -33,32 +26,13 @@ const MovieDetails = () => {
       {movie && (
         <>
           <Link to={backlinkLocation.current}>Go back</Link>
-          <Wrapper>
-            <StyledImg src={IMAGE_URL + movie.poster_path} alt={movie.title} />
-            <div>
-              <h2>{movie.title}</h2>
-              <p>User Score {Math.round(movie.vote_average * 10)}%</p>
-              <h3>Overview</h3>
-              <p>{movie.overview}</p>
-              <h4>Genres</h4>
-              <StyledGenres>
-                {movie.genres.map(({ id, name }) => {
-                  return <li key={id}>{name}</li>;
-                })}
-              </StyledGenres>
-            </div>
-          </Wrapper>
-          <InformWrapper>
-            <p>Additional information</p>
-            <ul>
-              <li>
-                <Link to="cast">Cast</Link>
-              </li>
-              <li>
-                <Link to="reviews">Reviews</Link>
-              </li>
-            </ul>
-          </InformWrapper>
+          <MovieDetailsInfo
+            poster_path={movie.poster_path}
+            title={movie.title}
+            vote_average={movie.vote_average}
+            overview={movie.overview}
+            genres={movie.genres}
+          />
         </>
       )}
       <Suspense fallback={<div>Loading...</div>}>
