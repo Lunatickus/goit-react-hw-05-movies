@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledImg = styled.img`
-  width: 200px;
+  width: 250px;
 `;
 
 export const InformWrapper = styled.div`
