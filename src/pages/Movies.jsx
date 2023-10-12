@@ -7,15 +7,14 @@ import { MovieList } from 'components/MovieList/MovieList';
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
   const location = useLocation();
 
   useEffect(() => {
+    if (!query) return;
     const searchMovie = async () => {
-      const movieName = searchParams.get('query') ?? '';
-      if (movieName === '') return;
-
       try {
-        const resp = await fetchSearchedMovies(movieName);
+        const resp = await fetchSearchedMovies(query);
         setMovies([...resp]);
       } catch (error) {
         console.log(error.message);
@@ -23,18 +22,14 @@ const Movies = () => {
     };
 
     searchMovie();
-  }, [searchParams]);
+  }, [query]);
 
   const handleSubmit = e => {
     e.preventDefault();
 
     const searchedValue = e.currentTarget.elements.query.value;
-    if (searchedValue === '') {
-      return setSearchParams({});
-    }
 
     setSearchParams({ query: searchedValue });
-    setMovies([]);
     e.currentTarget.reset();
   };
 
