@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from 'services/api';
 
 const MovieReviews = () => {
-  const { id } = useParams();
+  const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [noReviewsMessage, setNoReviewsMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +13,7 @@ const MovieReviews = () => {
     const getMovieReviews = async () => {
       setIsLoading(true);
       try {
-        const resp = await fetchMovieReviews(id);
+        const resp = await fetchMovieReviews(movieId);
         setReviews(resp.results);
 
         if (resp.results.length === 0) {
@@ -26,7 +26,7 @@ const MovieReviews = () => {
       }
     };
     getMovieReviews();
-  }, [id]);
+  }, [movieId]);
 
   return (
     <>

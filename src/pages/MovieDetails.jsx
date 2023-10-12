@@ -4,7 +4,7 @@ import { fetchMovie } from 'services/api';
 import { MovieDetailsInfo } from 'components/MoviDetailsInfo/MoviDetailsInfo';
 
 const MovieDetails = () => {
-  const { id } = useParams();
+  const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
   const backlinkLocation = useRef(location.state?.from ?? '/');
@@ -12,14 +12,14 @@ const MovieDetails = () => {
   useEffect(() => {
     const getMovie = async () => {
       try {
-        const resp = await fetchMovie(id);
+        const resp = await fetchMovie(movieId);
         setMovie(resp);
       } catch (error) {
         console.log(error.message);
       }
     };
     getMovie();
-  }, [id]);
+  }, [movieId]);
 
   return (
     <main>

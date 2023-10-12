@@ -4,7 +4,7 @@ import { fetchMovieCredits } from 'services/api';
 import { MovieCastList } from 'components/MovieCastList/MovieCastList';
 
 const MovieCast = () => {
-  const { id } = useParams();
+  const { movieId } = useParams();
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,7 +12,7 @@ const MovieCast = () => {
     const getMovieCast = async () => {
       setIsLoading(true);
       try {
-        const resp = await fetchMovieCredits(id);
+        const resp = await fetchMovieCredits(movieId);
         setCast(resp.cast);
       } catch (error) {
         console.log(error.message);
@@ -21,7 +21,7 @@ const MovieCast = () => {
       }
     };
     getMovieCast();
-  }, [id]);
+  }, [movieId]);
   return (
     <>
       {isLoading && <div>Loading...</div>}
