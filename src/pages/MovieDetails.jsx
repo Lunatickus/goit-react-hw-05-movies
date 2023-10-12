@@ -10,6 +10,8 @@ const MovieDetails = () => {
   const backlinkLocation = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
+    if (!movieId) return;
+    
     const getMovie = async () => {
       try {
         const resp = await fetchMovie(movieId);
